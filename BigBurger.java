@@ -51,3 +51,31 @@ The third customer needs to wait from time 11 to time 14. Neither of the other c
 Returns: 7
 The second customer waits the longest.
 This problem statement is the exclusive and proprietary property of TopCoder, Inc. Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited. (c)2003, TopCoder, Inc. All rights reserved. */
+public class BigBurger {
+	public int maxWait(int[] arrival, int[] service) {
+		int clock =0;
+		int maxWait = 0;
+		for(int i = 0; i < arrival.length; i++) {
+			int waitTime = 0;
+			//customers are waiting
+			if(clock > arrival[i]) {
+				waitTime = (clock - arrival[i] );
+				clock = clock + service[i];
+			} else {
+			//customers are not waiting
+				waitTime = 0;
+				clock = arrival[i] + service[i];
+			}
+			System.out.println("client " + i + " is waiting for " + waitTime);
+			if(waitTime > maxWait) maxWait = waitTime;
+		}
+		return maxWait;
+	}
+	public static void main(String[] args) { 
+		BigBurger b = new BigBurger();
+		b.maxWait(new int[]{3,3,9},new int[]{2,15,14});
+		b.maxWait(new int[]{182},new int[]{11});
+		b.maxWait(new int[]{2,10,11},new int[]{3,4,3});
+		b.maxWait(new int[]{2,10,12},new int[]{15,1,15});
+	}
+}
